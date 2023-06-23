@@ -1,0 +1,7 @@
+<div class="bg-gray-200 p-4" >
+    <ul  class="flex  gap-4 items-center" >
+        <li class="cursor-pointer text-2xl" *ngFor="let nav of nav"
+         [routerLink]="nav.routePath">{{nav.routeName}}</li>
+
+    </ul>
+</div>
