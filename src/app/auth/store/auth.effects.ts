@@ -2,11 +2,11 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { AuthService } from "src/app/core/auth.service";
 import {  loginStart, loginSuccess, signupStart, signupSuccess } from "./auth.actions";
-import { exhaustMap, map } from "rxjs";
+import { catchError, exhaustMap, map, of } from "rxjs";
 import { authResponse } from "./state/auth.state";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/state/app.state";
-import { sharedLoadingSpinner } from "src/app/shared/components/store/shared.action";
+import { SetErrorMessage, sharedLoadingSpinner } from "src/app/shared/components/store/shared.action";
 
 @Injectable()
 export class authEffects{
@@ -26,6 +26,10 @@ signup$= createEffect(() =>{
                     this.store.dispatch(sharedLoadingSpinner({status: false}))
                     const user = this.authService.formatUser(data)
                     return signupSuccess({user})
+                }),
+                catchError((errorResp) =>{
+                    const errMessage = this.authService.getErrorMessages(errorResp.error.error.message)
+                    return of(SetErrorMessage({message: errMessage}))
                 })
             )
         })
@@ -40,6 +44,10 @@ login$ = createEffect(() =>{
                 map((data) =>{
                     const user = this.authService.formatUser(data)
                     return loginSuccess({user})
+                }),
+                catchError((errorResp) =>{
+                    const errorMessage = this.authService.getErrorMessages(errorResp.error.error.message);
+                    return of(SetErrorMessage({message: errorMessage}))
                 })
             )
         })

@@ -1,4 +1,5 @@
 export interface sharedState{
-    showLoading: boolean
+    showLoading: boolean,
+    errorMessage: string
 }
 

@@ -40,5 +40,23 @@ export class AuthService extends BaseUrlService implements OnInit{
     return user
   }
 
+
+  getErrorMessages(message: string){
+    switch(message){
+      case 'EMAIL_NOT_FOUND':
+        return 'email not found';
+      
+
+        case 'INVALID_PASSWORD':
+          return ' invalid password';
+
+          case 'EMAIL_EXIST':
+            return 'email exist';
+            
+            default:
+              return 'unknown error occured. Please try again'
+    }
+  }
+
 }
 
