@@ -11,7 +11,6 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent implements OnInit{
   title = 'ngrx';
-
   showLoading!: Observable<boolean>
   errorMessage!: Observable<string>
 

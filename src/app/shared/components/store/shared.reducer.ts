@@ -4,7 +4,7 @@ import { SetErrorMessage, sharedLoadingSpinner } from "./shared.action";
 
 const initialState: sharedState = {
     showLoading: false,
-    errorMessage: '',
+    message: '',
 }
 
 
@@ -21,7 +21,7 @@ export const sharedReducer = createReducer(
     on(SetErrorMessage, (state, action) =>{
         return{
             ...state,
-            errorMessage: action.message
+            message: action.message
         }
     })
 )
